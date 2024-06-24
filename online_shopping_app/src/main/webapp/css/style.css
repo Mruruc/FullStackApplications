@@ -1,0 +1,14 @@
+.text-center{
+    text-align: center;
+}
+
+.main-height{
+    min-height: 620px;
+}
+
+.error-message{
+    color: darkred;
+}
+.visibility{
+    visibility: hidden;
+}

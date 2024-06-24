@@ -1,0 +1,1188 @@
+openapi: 3.0.1
+info:
+  title: "BidAndWin API Documentation "
+  description: "API for BidAndWin project. This API provides endpoints for Clients,Users,Auctions,Bids,and Items entities."
+  contact:
+    name: Omer Uruc And Rahim Rzayev
+    url: https://github.com/Mruruc
+    email: mr.uruc@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: "Github Repository For #BidAndWin Project"
+  url: https://github.com/Mruruc
+
+## servers. todo:the production server should be chanege
+servers:
+  - url: http://localhost:8080/api
+    description: Local server for Development.
+  - url: https://bid-and-win-web-service-578c86ac472b.herokuapp.com/api
+    description: Heroku server for Production.
+
+## tags
+tags:
+  - name: Clients
+    description: Clients API Endpoints and Operations.
+  - name: Addresses
+    description: "Addresses API for Users and Clients, Endpoints and Operations."
+  - name: Auctions
+    description: Auction API Endpoints and Operations.
+  - name: Items
+    description: "Items API for Clients, Endpoints and Operations."
+  - name: Bids
+    description: Bids API Endpoints and Operations.
+
+    ## paths
+paths:
+  ## clients:
+  /clients:
+    get:
+      tags:
+        - Clients
+      summary: Get all clients
+      description: Returns the list of all clients.
+      operationId: getAll
+      responses:
+        "200":
+          description: List of all clients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ClientDto"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObject"
+    post:
+      tags:
+        - Clients
+      summary: Create a new client
+      description: Creates a new client.
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientDtoForPost"
+        required: true
+      responses:
+        "201":
+          description: Client created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientDtoForPost"
+        "400":
+          description: Invalid client data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObject"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObject"
+
+  /clients/{clientId}:
+    get:
+      tags:
+        - Clients
+      summary: Get client by id
+      description: Returns the client with the specified id.
+      operationId: getClientById
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Client with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientDto"
+        "404":
+          description: Client not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObject"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObject"
+    put:
+      tags:
+        - Clients
+      summary: Update client
+      description:
+        Updates the client with the specified id. Returns 404 if there
+        is no client with the specified id.
+      operationId: updateClient
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientDtoForPost"
+        required: true
+      responses:
+        "200":
+          description: Client updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ClientDto"
+        "404":
+          description: Client not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectEntityNotFound"
+        "409":
+          description: Client with the same email already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectConflict"
+        "500":
+          description: Internal server error
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ErrorObjectInternalServerError"
+    delete:
+      tags:
+        - Clients
+      summary: Delete client
+      description: Deletes the client with the specified id. Returns 404 if there is no client with the specified id.
+      operationId: deleteClient
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      responses:
+        "204":
+          description: Client deleted
+        "404":
+          description: Client not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectEntityNotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectInternalServerError"
+
+  /address/{clientId}:
+    get:
+      tags:
+        - Addresses
+      summary: Get Address by client Id.
+      description: Returns the Address with the specified client Id.
+      operationId: getAddress
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressDto"
+    put:
+      tags:
+        - Addresses
+      summary: Update address by client Id.
+      description: Updates the Address with the specified client Id.
+      operationId: updateAddress
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddressDto"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AddressDto"
+    post:
+      tags:
+        - Addresses
+      summary: Create Address by client Id.
+      description: Create the Address with the specified client Id.
+      operationId: createAddress
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddressDto"
+        required: true
+      responses:
+        "201":
+          description: CREATED
+          content:
+            "*/*":
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+    delete:
+      tags:
+        - Addresses
+      summary: delete an address by client Id.
+      description: deletes the Address with the specified client Id.
+      operationId: deleteAddress
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      responses:
+        "204":
+          description: Sucessfully Deleted.
+          #content:
+
+  /auctions:
+    get:
+      tags:
+        - Auctions
+      summary: Get all auctions
+      description: Returns the list of all auctions.
+      operationId: getAllAuctions
+      responses:
+        "200":
+          description: List of all auctions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuctionDto"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectInternalServerError"
+
+    post:
+      tags:
+        - Auctions
+      summary: Create auction
+      description: Creates a new auction.
+      operationId: createAuction
+      requestBody:
+        description: Auction data
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuctionDto"
+        required: true
+      responses:
+        "201":
+          description: Auction created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuctionDto"
+        "409":
+          description: Invalid auction data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectConflict"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectInternalServerError"
+
+  /auctions/{id}:
+    get:
+      tags:
+        - Auctions
+      summary: Get auction by id
+      description: Returns the auction with the specified id.
+      operationId: getAuctionById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      responses:
+        "200":
+          description: Auction with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuctionDto"
+        "404":
+          description: Auction not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectEntityNotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectInternalServerError"
+
+    delete:
+      tags:
+        - Auctions
+      summary: delete auction by id
+      description: delete the auction with the specified id.
+      operationId: deleteAuctionById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      responses:
+        "204":
+          description: Successfully Deleted.
+        "404":
+          description: Auction not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectEntityNotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectInternalServerError"
+
+  /items:
+    get:
+      tags:
+        - Items
+      summary: Get all items
+      description: Get all items from the database.
+      operationId: getItems
+      responses:
+        "200":
+          description: List of all items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ItemDto"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectInternalServerError"
+    post:
+      tags:
+        - Items
+      summary: Create item
+      description: Create item in the database.
+      operationId: createItem
+      requestBody:
+        description: Item to be created
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JutsItemDto"
+        required: true
+      responses:
+        "201":
+          description: Item created
+          content:
+            application/url:
+              schema:
+                type: string
+                format: uri
+                example: "http://localhost:8080/api/items/1"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/400Error"
+
+        "404":
+          description: Client Or Auction Not Foud.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectEntityNotFound"
+
+        "500":
+          description: Internal server error
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ErrorObject"
+
+  /items/{itemId}:
+    get:
+      tags:
+        - Items
+      summary: Get item by id
+      description: "Get item by id if exist,else 404 not found ."
+      operationId: getItem
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Item by id
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ItemDto"
+        "404":
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObject"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObject"
+    put:
+      tags:
+        - Items
+      summary: Update item by provided item id.
+      description: Update item in the database.
+      operationId: updateItem
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 2
+      requestBody:
+        description: Item to be updated
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/JutsItemDto"
+        required: true
+      responses:
+        "200":
+          description: Item updated
+          content:
+            application/url:
+              schema:
+                type: string
+                format: uri
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/400Error"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectInternalServerError"
+    delete:
+      tags:
+        - Items
+      summary: Delete item by provided id
+      description: Delete item in the database.
+      operationId: deleteItem
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      responses:
+        "204":
+          description: Item deleted.
+        "404":
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectEntityNotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectInternalServerError"
+
+  /items/info/{itemId}:
+    get:
+      tags:
+        - Items
+      summary: Download item information by provided item id
+      description: Download item information from the database.
+      operationId: downloadItem
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Item downloaded
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+                example: /api/items/info/1
+        "404":
+          description: Item not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectEntityNotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectInternalServerError"
+  /items/client/{clientId}:
+    get:
+      tags:
+        - Items
+      summary: Return List of item by client id
+      description: "Get items by client id if exist,else 404 not found ."
+      operationId: getItems_1
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      responses:
+        "200":
+          description: Items by client id
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ItemDto"
+        "404":
+          description: Client not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectEntityNotFound"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectInternalServerError"
+
+  /users/{clientId}:
+    post:
+      tags:
+        - Users
+      operationId: createUser
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+  /users/login:
+    post:
+      tags:
+        - Users
+      operationId: loginUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserDTO"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+  /users/{userId}:
+    get:
+      tags:
+        - Users
+      summary: Return user .
+      description: retuen user for we application operation id
+      operationId: getUserByClientId
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+
+  /bids/{auctionId}:
+    post:
+      tags:
+        - Bids
+      summary: create bids
+      description: create bids with specified auctions id
+      operationId: saveBid
+      parameters:
+        - name: auctionId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BidDto"
+        required: true
+      responses:
+        "200":
+          description: CREATED
+          content:
+            application/uri:
+              schema:
+                type: string
+                format: uri
+                example: "/api/auctions/1"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/400Error"
+
+        "404":
+          description: Client Or Item Not Foud.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectEntityNotFound"
+
+        "500":
+          description: Internal server error
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ErrorObject"
+  /bids/item/{itemId}:
+    get:
+      tags:
+        - Bids
+      summary: return list of bid.
+      description: return list of bid by provided item id.
+      operationId: getBidsByItem
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BidDto"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/400Error"
+
+        "404":
+          description: Item Not Foud.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectEntityNotFound"
+
+        "500":
+          description: Internal server error
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/ErrorObject"
+  /bids/client/{clientId}:
+    get:
+      tags:
+        - Bids
+      summary: Return list of bid.
+      description: Return list of bid for the client.
+      operationId: getBidsByClient
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BidDto"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/400Error"
+
+        "404":
+          description: Item Not Foud.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectEntityNotFound"
+
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorObjectInternalServerError"
+
+## components:
+components:
+  ## schemas
+  schemas:
+    ## clientDto schema
+    ClientDto:
+      type: object
+      properties:
+        clientId:
+          type: integer
+          format: int64
+          example: 1
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: Doe
+        dateOfBirth:
+          type: string
+          format: date
+          example: "1990-05-24"
+        gender:
+          type: string
+          enum:
+            - FEMALE
+            - MALE
+            - OTHERS
+        email:
+          type: string
+          example: john@doe
+        phone:
+          type: string
+          example: +48789564321
+        address:
+          $ref: "#/components/schemas/AddressDto"
+        user:
+          $ref: "#/components/schemas/UserDTO"
+
+    ClientDtoForPost:
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: Doe
+        dateOfBirth:
+          type: string
+          format: date
+          example: "1990-05-24"
+        gender:
+          type: string
+          enum:
+            - FEMALE
+            - MALE
+            - OTHERS
+        email:
+          type: string
+          example: john@doe
+        phone:
+          type: string
+          example: +48789564321
+        address:
+          $ref: "#/components/schemas/AddressDtoForPost"
+
+    ## addressDto schema
+    AddressDtoForPost:
+      type: object
+      properties:
+        country:
+          type: string
+          example: Poland
+        city:
+          type: string
+          example: Warsaw
+        zipCode:
+          type: string
+          example: 04-555
+        street:
+          type: string
+          example: Old Town
+        aptOrHouseNumber:
+          type: integer
+          format: int32
+          example: 565
+
+    ## addressDto schema
+    AddressDto:
+      type: object
+      properties:
+        addressId:
+          type: integer
+          format: int64
+          example: 1
+        country:
+          type: string
+          example: Poland
+        city:
+          type: string
+          example: Warsaw
+        zipCode:
+          type: string
+          example: 04-555
+        street:
+          type: string
+          example: Old Town
+        aptOrHouseNumber:
+          type: integer
+          format: int32
+          example: 565
+        clientId:
+          type: integer
+          format: int64
+          example: 1
+
+    ## bidDto
+    BidDto:
+      type: object
+      properties:
+        bidId:
+          type: integer
+          format: int64
+          example: 1
+        bidAmount:
+          type: number
+          format: double
+          example: 88.99
+        bidTime:
+          type: string
+          format: date-time
+        itemId:
+          type: integer
+          format: int64
+        auctionId:
+          type: integer
+          format: int64
+        clientId:
+          type: integer
+          format: int64
+
+    ## itemDto
+    ItemDto:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int64
+          example: 1
+        itemTitle:
+          type: string
+          example: "Vintage Vase"
+        itemDescription:
+          type: string
+          example: "A beautifully crafted vintage vase from the 19th century."
+        startingPrice:
+          type: number
+          format: double
+          example: 50.99
+        currentPrice:
+          type: number
+          format: double
+          example: 50.99
+        auctionId:
+          type: integer
+          format: int64
+          example: 1
+        clientId:
+          type: integer
+          format: int64
+          example: 1
+        bids:
+          type: array
+          items:
+            $ref: "#/components/schemas/BidDto"
+
+      ## userDto schema
+    UserDTO:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+          example: 1
+        userName:
+          type: string
+          example: john@doe
+        password:
+          type: string
+          example: "$2a$10$89CqcTqK5O0toffDbOtnD.fLRZQ/TciLUqY9HP2E.tB4f/1wakf1W"
+        failedLoginAttempts:
+          type: integer
+          format: int64
+          example: 0
+        lastModified:
+          type: string
+          format: date
+          example: "2024-05-23"
+        clientId:
+          type: integer
+          format: int64
+          example: 1
+        accountLocked:
+          type: boolean
+          example: false
+
+    ## auctionDto schema
+    AuctionDto:
+      description: Auction data transfer object
+      type: object
+      properties:
+        auctionId:
+          type: integer
+          format: int64
+        auctionStartTime:
+          type: string
+          format: date-time
+        auctionEndTime:
+          type: string
+          format: date-time
+        auctionStatus:
+          type: string
+          enum:
+            - PENDING
+            - ACTIVE
+            - SOLD
+            - REMOVED
+        itemDtos:
+          type: array
+          items:
+            $ref: "#/components/schemas/ItemDto"
+
+    JutsItemDto:
+      type: object
+      properties:
+        itemTitle:
+          type: string
+          example: "Vintage Vase"
+        itemDescription:
+          type: string
+          example: "A beautifully crafted vintage vase from the 19th century."
+        startingPrice:
+          type: number
+          format: double
+          example: 50.99
+        currentPrice:
+          type: number
+          format: double
+          example: 50.99
+        auctionId:
+          type: integer
+          format: int64
+          example: 1
+        clientId:
+          type: integer
+          format: int64
+          example: 1
+
+    ## error objects
+    ErrorObject:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 404
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+
+    ErrorObjectEntityNotFound:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 404
+        message:
+          type: string
+          example: Entity Not Found!
+        timestamp:
+          type: string
+          format: date-time
+          example: 2021-06-01T00:00:00
+
+    ErrorObjectInternalServerError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 500
+        message:
+          type: string
+          example: Internal Server Error!
+        timestamp:
+          type: string
+          format: date-time
+          example: 2021-06-01T00:00:00
+
+    ErrorObjectConflict:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 409
+        message:
+          type: string
+          example: Entity Already Exists!
+        timestamp:
+          type: string
+          format: date-time
+          example: 2021-06-01T00:00:00
+
+    400Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Invalid Field/s!
+        timestamp:
+          type: string
+          format: date-time
+          example: 2021-06-01T00:00:00

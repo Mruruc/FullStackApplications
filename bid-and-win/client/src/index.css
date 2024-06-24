@@ -1,0 +1,465 @@
+.text-align-center {
+  text-align: center;
+}
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+.standard-header {
+  background-color: #004085;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 6rem;
+  border-bottom: 4px solid #0056b3;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.standard-main {
+  margin: 7rem auto 0;
+  padding: 70px 20px; 
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  max-width: 1200px;
+  position: relative;
+}
+
+.standard-main1 {
+  margin: -4rem auto 0;
+  padding: 20px;
+  border-radius: 8px;
+  right: 15px;
+}
+
+.standard-footer {
+  position : fixed;
+  z-index: 1000;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2rem;
+  text-align: center;
+  padding: 10px;
+  background-color: #004085;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.register-form, .login-form, .createAccountForm, .about-us {
+  margin: auto;
+  width: 90%;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.createAccountForm {
+  margin-top: -170px; 
+  width: 90%;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 20px;
+  margin: 20px auto;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.nav-link-custom {
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 10px 45px;
+  color: #fff;
+  background-color: #0056b3;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-link-custom:hover, .nav-link-custom:focus {
+  background-color: #004085;
+  color: #fff;
+}
+
+.centered-navbar {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.navbar-container {
+  width: auto;  /* Adjust width as needed */
+}
+
+.danger-zone {
+  background-color: #ffdddd;
+  border: 1px solid #ff4d4d;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.danger-zone p {
+  color: #cc0000;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.danger-zone .btn-danger {
+  width: 100%;
+  padding: 0.8rem 1.2rem;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-radius: 4px;
+  padding: 10px 20px;
+  transition: background-color 0.2s;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.back-button {
+  cursor: pointer;
+  color: #0056b3;
+  font-weight: bold;
+  padding: 15px;
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
+
+.main-title {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+}
+
+.back-to-account {
+  position: absolute;
+  bottom: 320px;
+  right: 45px;
+  cursor: pointer;
+}
+
+.back-to-account.personal-info {
+  bottom: -5px; 
+  right: 45px;
+}
+
+.back-to-account.address-info {
+  bottom: -5px;
+  right: 45px;
+}
+
+.description-container {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin: -10px auto;
+  max-width: 800px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding-bottom: 80px;
+}
+
+.description-container h3 {
+  color: #0056b3;
+  margin-bottom: 10px;
+}
+
+.description-container pre {
+  background-color: #f4f4f4;
+  border-left: 4px solid #0056b3;
+  padding: 10px;
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  overflow-x: auto;
+  white-space: pre-wrap; 
+}
+
+.input-field {
+  display: block;
+  width: 90%; /* Match input width to the container */
+  padding: 8px; /* Comfortable padding */
+  margin: 10px 0; /* Spacing between form elements */
+  border: 2px solid #ccc; /* Subtle border */
+  border-radius: 4px; /* Rounded corners to match the container */
+}
+
+.create-button {
+  padding: 10px 20px;
+  background-color: #4CAF50; /* Green background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  display: block;
+  margin-left: 310px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+
+.create-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Overview Container - enhanced to include styling for h3 */
+.overview-container {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensures the header and button are at opposite ends */
+  margin-bottom: 10px;
+}
+
+.header-container h3 {
+  color: #0056b3; /* Matching color with Description h3 */
+  margin-bottom: 0; /* Consistent spacing */
+}
+
+.header-container .download-button {
+  margin-left: 20px; /* Space between header and button */
+}
+
+.overview-container p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+  padding-left: 10px;
+  border-left: 4px solid #0056b3; /* Stylistic element from Description */
+  background-color: #f4f4f4; /* Background color from pre in Description */
+  font-family: 'Arial', sans-serif; /* Keeping font consistent with the body */
+}
+
+.download-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #0056b3;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.download-button:hover {
+  background-color: #004494;
+}
+
+
+/* Features Container - similar to Overview and Description containers */
+.features-container {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.features-container h3 {
+  color: #0056b3; /* Matching color with other h3s */
+  margin-bottom: 10px; /* Consistent spacing */
+}
+
+.features-container p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+  padding-left: 10px;
+  border-left: 4px solid #0056b3; /* Stylistic element from other components */
+  background-color: #f4f4f4; /* Background color from other components */
+  font-family: 'Arial', sans-serif; /* Keeping font consistent with the body */
+}
+
+.features-container .text-black {
+  color: #000; /* Ensuring text-black class overrides the default color */
+  padding-left: 4px; /* Adjust padding to match other elements */
+}
+
+/* Pricing Container - mirroring styles of other similar containers */
+.pricing-container {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.pricing-container h1 {
+  color: #0056b3; /* Keeping header styles consistent */
+  margin-bottom: 10px;
+}
+
+.pricing-container p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #333;
+  padding-left: 10px;
+  border-left: 4px solid #0056b3; /* Aesthetic continuity with other components */
+  background-color: #f4f4f4;
+  font-family: 'Arial', sans-serif; /* Consistent font usage */
+}
+
+/* Align the dropdown to the center vertically */
+.dropdown {
+    align-self: center;
+    right: 130px;
+}
+
+/* Ensure that the dropdown link items are also vertically centered */
+.nav-link {
+    display: flex;
+    align-items: center;
+    height: 90px;  /* Set height to match other nav items */
+    margin-right: 100px;
+}
+
+.nav-link-dashboard {
+  color: #9C27B0; /* Purple */
+  transition: color 0.3s;
+}
+
+.nav-link-dashboard:hover {
+  color: #7B1FA2; /* Darker purple */
+}
+
+.nav-link-auctions {
+  color: #FF5722; /* Deep Orange */
+  transition: color 0.3s;
+}
+
+.nav-link-auctions:hover {
+  color: #E64A19; /* Darker deep orange */
+}
+
+.nav-link-create-auction {
+  color: #4CAF50; /* Green */
+  transition: color 0.3s;
+}
+
+.nav-link-create-auction:hover {
+  color: #388E3C; /* Darker green */
+}
+
+.container {
+  max-width: 1700px;
+}
+
+/* This style will make the dropdown content visible inline with other nav items */
+.dropdown ul {
+    position: absolute;
+    border-radius: 5px;
+    padding: 12px 16px;
+    z-index: 1000;
+}
+
+/* You might want to adjust the dropdown toggle button */
+.dropdown-toggle {
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.standard-main2 {
+  margin: 3rem auto 0; /* Reduced from 7rem to 5rem to move the layout up */
+  padding: 70px 20px; 
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  max-width: 1200px;
+  max-height: auto;
+  position: relative;
+}
+
+.btn-small {
+  padding: 5px 10px;
+  font-size: 0.78rem;
+  margin-left: 5px;
+}
+
+/* New styles for Header component */
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-img {
+  height: 90px;
+  margin-right: 10px;
+}
+
+/* New styles moved from AddressInfo.jsx */
+.text-center {
+  text-align: center;
+}
+
+/* Styles moved from UserProfile.jsx */
+.update-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.go-back-text {
+  cursor: pointer;
+  margin-top: -4rem;
+  margin-left: 65rem;
+}
+
